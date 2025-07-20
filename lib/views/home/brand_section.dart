@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/models/product_model.dart';
 import 'package:perfumio/providers/scroll_provider.dart';
 import 'package:provider/provider.dart';
 
 class BrandSection extends StatefulWidget {
-  const BrandSection({super.key});
+  final List<Brand> brandItems;
+  const BrandSection({super.key, required this.brandItems});
 
   @override
   State<BrandSection> createState() => _BrandSectionState();
@@ -17,7 +18,6 @@ class _BrandSectionState extends State<BrandSection> {
     final scrollProvider = Provider.of<ScrollProvider>(context);
     return Container(
       width: double.infinity,
-      // height: MediaQuery.of(context).size.width / 1.50,
       color: AppColors.lightGrey,
       child: Column(
         children: [
@@ -78,7 +78,7 @@ class _BrandSectionState extends State<BrandSection> {
                   15,
                   0,
                 ),
-                itemCount: 10,
+                itemCount: widget.brandItems.length,
                 itemBuilder: (context, i) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 15),
@@ -86,12 +86,22 @@ class _BrandSectionState extends State<BrandSection> {
                       height: 16,
                       width: 140,
                       decoration: BoxDecoration(
-                        color: AppColors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.containerBorderGrey)
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border:
+                              Border.all(color: AppColors.containerBorderGrey)),
+                      child: Image.network(
+                        widget.brandItems[i].image,
+                        fit: BoxFit.fill,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Center(child: Icon(Icons.broken_image)),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        },
                       ),
-
-                      child: Image.asset(AppAssets.brandImg),
                     ),
                   );
                 },

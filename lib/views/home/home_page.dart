@@ -96,9 +96,10 @@ class _HomePageState extends State<HomePage> {
                       ...homeFields.map((field) {
                         switch (field.type) {
                           case 'carousel':
-                            return BannerScreen(carouselItems: field.carouselItems ?? []);
+                            return BannerScreen(
+                                carouselItems: field.carouselItems ?? []);
                           case 'brands':
-                            return BrandSection();
+                            return BrandSection(brandItems: field.brands ?? []);
                           case 'category':
                             return CategorySection();
                           case 'collection':

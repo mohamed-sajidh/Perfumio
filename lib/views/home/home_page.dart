@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           case 'brands':
                             return BrandSection(brandItems: field.brands ?? []);
                           case 'category':
-                            return CategorySection();
+                            return CategorySection(categoryItems: field.categories ?? []);
                           case 'collection':
                             return NewArrivals();
                           case 'banner':

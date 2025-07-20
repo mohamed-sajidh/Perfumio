@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/models/product_model.dart';
 
 class CategorySection extends StatelessWidget {
-  const CategorySection({super.key});
+  final List<Category> categoryItems;
+  const CategorySection({super.key, required this.categoryItems});
+
   @override
   Widget build(BuildContext context) {
     final List<Color> backgroundColors = [
@@ -12,8 +15,6 @@ class CategorySection extends StatelessWidget {
       AppColors.lightPink,
       AppColors.lightGreen,
     ];
-    const int columns = 4;
-    int rows = (5 <= columns) ? 1 : 2;
 
     return SizedBox(
       width: double.infinity,
@@ -22,6 +23,7 @@ class CategorySection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -55,139 +57,75 @@ class CategorySection extends StatelessWidget {
                 ),
               ],
             ),
+
             const SizedBox(height: 5),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  for (int i = 0; i < (10 / (rows * columns)).ceil(); i++)
-                    Column(
-                      children: [
-                        for (int row = 0; row < rows; row++)
-                          SizedBox(
-                            height: 100,
-                            width: MediaQuery.of(context).size.width,
-                            child: GridView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: columns,
-                                childAspectRatio: 0.40,
-                                mainAxisSpacing: 1,
-                                crossAxisSpacing: 2,
-                              ),
-                              itemCount: columns,
-                              itemBuilder: (context, index) {
-                                int categoryIndex =
-                                    i * columns * rows + row * columns + index;
-                                if (categoryIndex < 10) {
-                                  // var category = homeCategoryController
-                                  //     .categories[categoryIndex];
 
-                                  return SizedBox(
-                                    height: 120,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        // Inner Circle (Existing Code)
-                                        Container(
-                                          width: 70,
-                                          height: 70,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: backgroundColors[
-                                                categoryIndex %
-                                                    backgroundColors.length],
-                                          ),
-                                          child: Center(
-                                            child: Image.asset(
-                                              AppAssets.categoryImg,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-
-                                          // Center(
-                                          //   child: category.image != null &&
-                                          //           category.image!.isNotEmpty
-                                          //       ? ClipOval(
-                                          //           child: Image.network(
-                                          //             Uri.tryParse(category
-                                          //                             .image!)
-                                          //                         ?.isAbsolute ==
-                                          //                     true
-                                          //                 ? category.image!
-                                          //                 : Uri.parse(category
-                                          //                         .image!
-                                          //                         .replaceFirst(
-                                          //                             RegExp(
-                                          //                                 r'^/+'),
-                                          //                             ""))
-                                          //                     .toString(),
-                                          //             fit: BoxFit.cover,
-                                          //             width: double.infinity,
-                                          //             height: double.infinity,
-                                          //             loadingBuilder: (context,
-                                          //                 child,
-                                          //                 loadingProgress) {
-                                          //               if (loadingProgress ==
-                                          //                   null) {
-                                          //                 return child;
-                                          //               } else {
-                                          //                 return const Center(
-                                          //                   child:
-                                          //                       CircularProgressIndicator(),
-                                          //                 );
-                                          //               }
-                                          //             },
-                                          //             errorBuilder: (context,
-                                          //                 error, stackTrace) {
-                                          //               return Image.asset(
-                                          //                 AppAssets.brandImg,
-                                          //                 fit: BoxFit.cover,
-                                          //               );
-                                          //             },
-                                          //           ),
-                                          //         )
-                                          //       : Image.asset(
-                                          //           AppAssets.brandImg,
-                                          //           fit: BoxFit.cover,
-                                          //         ),
-                                          // ),
-                                        ),
-                                        Text(
-                                          "Aromatic",
-                                          maxLines: 2,
-                                          overflow: TextOverflow.visible,
-                                          softWrap: true,
-                                          style: const TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          textScaler: TextScaler.linear(
-                                            MediaQuery.of(context)
-                                                .textScaler
-                                                .scale(1.0),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
-                          ),
-                      ],
-                    ),
-                ],
+            // Category Grid
+            GridView.builder(
+              padding: EdgeInsets.zero,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: categoryItems.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 4,
+                childAspectRatio: 0.60,
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
               ),
+              itemBuilder: (context, index) {
+                final category = categoryItems[index];
+                final bgColor =
+                    backgroundColors[index % backgroundColors.length];
+
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 70,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: bgColor,
+                      ),
+                      child: ClipOval(
+                        child: category.image.isNotEmpty
+                            ? Image.network(
+                                category.image,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Image.asset(AppAssets.categoryImg),
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return const Center(
+                                    child: CircularProgressIndicator(
+                                        strokeWidth: 2),
+                                  );
+                                },
+                              )
+                            : Image.asset(
+                                AppAssets.categoryImg,
+                                fit: BoxFit.cover,
+                              ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      category.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textScaler: TextScaler.linear(
+                        MediaQuery.of(context).textScaler.scale(1.0),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),

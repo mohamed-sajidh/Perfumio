@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/models/product_model.dart';
 import 'package:perfumio/widgets/product_card.dart';
 
 class NewArrivals extends StatelessWidget {
-  const NewArrivals({super.key});
+  final List<Product> productItems;
+  final String titleName;
+  const NewArrivals({super.key, required this.productItems, required this.titleName});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class NewArrivals extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                " New Arrivals",
+                titleName,
                 style: const TextStyle(
                   color: AppColors.black,
                   fontWeight: FontWeight.bold,
@@ -48,9 +51,9 @@ class NewArrivals extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: productItems.length,
               itemBuilder: (BuildContext context, int index) {
-                return const ProductCard();
+                return ProductCard(productItems: productItems, index: index);
               },
             ),
           ),

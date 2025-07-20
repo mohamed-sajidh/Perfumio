@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_colors.dart';
-import 'package:perfumio/widgets/product_card.dart';
 
 class LatestProduct extends StatelessWidget {
   const LatestProduct({super.key});
@@ -50,7 +49,10 @@ class LatestProduct extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
-                return const ProductCard();
+                return Container(
+                  height: 10,
+                  width: 10,
+                );
               },
             ),
           ),

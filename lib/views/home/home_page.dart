@@ -83,41 +83,47 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Consumer<ProductProvider>(builder: (context, provider, child) {
-        final homeFields = provider.productList?.homeFields ?? [];
+      body: Consumer<ProductProvider>(
+        builder: (context, provider, child) {
+          final homeFields = provider.productList?.homeFields ?? [];
 
-        return provider.getProductsLoader
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Column(
-                    children: [
-                      ...homeFields.map((field) {
-                        switch (field.type) {
-                          case 'carousel':
+          return provider.getProductsLoader
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Column(
+                      children: [
+                        ...homeFields.map((field) {
+                          if (field.type == 'carousel') {
                             return BannerScreen(
                                 carouselItems: field.carouselItems ?? []);
-                          case 'brands':
+                          } else if (field.type == 'brands') {
                             return BrandSection(brandItems: field.brands ?? []);
-                          case 'category':
-                            return CategorySection(categoryItems: field.categories ?? []);
-                          case 'collection':
-                            return NewArrivals();
-                          case 'banner':
+                          } else if (field.type == 'category') {
+                            return CategorySection(
+                                categoryItems: field.categories ?? []);
+                          } else if (field.type == 'collection' &&
+                              field.collectionId == 1) {
+                            return NewArrivals(
+                              productItems: field.products ?? [],
+                              titleName: field.name ?? "",
+                            );
+                          } else if (field.type == 'banner') {
                             return SecondaryBannerSection();
-                          case 'banner-grid':
+                          } else if (field.type == 'banner-grid') {
                             return BannerGridSection();
-                          default:
+                          } else {
                             return const SizedBox.shrink();
-                        }
-                      }).toList(),
-                      const SizedBox(height: 115),
-                    ],
+                          }
+                        }).toList(),
+                        const SizedBox(height: 115),
+                      ],
+                    ),
                   ),
-                ),
-              );
-      }),
+                );
+        },
+      ),
     );
   }
 }

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/models/product_model.dart';
 import 'package:perfumio/widgets/custom_button.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  final List<Product> productItems;
+  final int index;
+  const ProductCard({
+    super.key,
+    required this.productItems,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +39,10 @@ class ProductCard extends StatelessWidget {
                   ),
                   color: AppColors.lightGrey,
                 ),
-                child: const Center(
+                child: Center(
                   child: Text(
-                    "40% OFF",
-                    style: TextStyle(
+                    productItems[index].offer,
+                    style: const TextStyle(
                       color: AppColors.green,
                       fontWeight: FontWeight.bold,
                     ),
@@ -48,27 +55,48 @@ class ProductCard extends StatelessWidget {
               )
             ],
           ),
-          Image.asset(AppAssets.productImg),
+          SizedBox(
+            height: 100, // ✅ Set your desired fixed height
+            width: 100, // ✅ Optional: set width if needed
+            child: productItems[index].image.isNotEmpty
+                ? Image.network(
+                    productItems[index].image,
+                    fit: BoxFit
+                        .contain, // or BoxFit.cover depending on your design
+                    errorBuilder: (context, error, stackTrace) =>
+                        Image.asset(AppAssets.categoryImg, fit: BoxFit.contain),
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      );
+                    },
+                  )
+                : Image.asset(
+                    AppAssets.productImg,
+                    fit: BoxFit.contain,
+                  ),
+          ),
           const SizedBox(height: 3),
-          const Padding(
-            padding: EdgeInsets.symmetric(
+          Padding(
+            padding: const EdgeInsets.symmetric(
               horizontal: 8,
             ),
             child: Text(
-              "Les Eaux De Chaneleau Spray",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              productItems[index].name,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 3),
-          const Align(
+          Align(
             alignment: Alignment.centerLeft,
             child: Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 8,
               ),
               child: Text(
-                "AED500.00",
-                style: TextStyle(
+                "${productItems[index].currency} ${productItems[index].actualPrice}",
+                style: const TextStyle(
                   decoration: TextDecoration.lineThrough,
                   fontWeight: FontWeight.bold,
                   color: AppColors.grey,
@@ -77,36 +105,30 @@ class ProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 3),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               children: [
                 Text(
-                  "AED",
-                  style: TextStyle(
+                  productItems[index].currency,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                const SizedBox(width: 3),
                 Text(
-                  "484.00",
-                  style: TextStyle(
+                  productItems[index].price,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(width: 3),
+                const SizedBox(width: 3),
                 Text(
-                  "per",
-                  style: TextStyle(
+                  productItems[index].unit,
+                  style: const TextStyle(
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(width: 3),
-                Text(
-                  "Dozen",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                  ),
-                )
               ],
             ),
           ),

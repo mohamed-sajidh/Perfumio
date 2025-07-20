@@ -5,6 +5,7 @@ import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/brand_section.dart';
 import 'package:perfumio/views/home/category_section.dart';
 import 'package:perfumio/views/home/home_page_widgets.dart';
+import 'package:perfumio/views/home/new_arrivals.dart';
 import 'package:perfumio/views/home/secondary_banner_section.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,6 +83,8 @@ class _HomePageState extends State<HomePage> {
               CategorySection(),
               SizedBox(height: 5),
               SecondaryBannerSection(),
+              SizedBox(height: 10),
+              NewArrivals(),
               SizedBox(height: 115),
             ],
           ),

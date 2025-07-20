@@ -11,4 +11,5 @@ class AppAssets {
 
   static const String brandImg = 'assets/single_brand_img.png';
   static const String categoryImg = 'assets/single_category_img.png';
+  static const String productImg = 'assets/single_product_img.png';
 }

@@ -3,6 +3,7 @@ import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
 import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/brand_section.dart';
+import 'package:perfumio/views/home/category_section.dart';
 import 'package:perfumio/views/home/home_page_widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -68,14 +69,19 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-        child: Column(
-          children: [
-            BannerScreen(),
-            SizedBox(height: 15),
-            FastMovingItemSection(),
-          ],
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 12),
+          child: Column(
+            children: [
+              BannerScreen(),
+              SizedBox(height: 15),
+              BrandSection(),
+              SizedBox(height: 15),
+              CategorySection(),
+              SizedBox(height: 115),
+            ],
+          ),
         ),
       ),
     );

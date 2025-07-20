@@ -4,20 +4,20 @@ import 'package:perfumio/core/app_colors.dart';
 import 'package:perfumio/providers/scroll_provider.dart';
 import 'package:provider/provider.dart';
 
-class FastMovingItemSection extends StatefulWidget {
-  const FastMovingItemSection({super.key});
+class BrandSection extends StatefulWidget {
+  const BrandSection({super.key});
 
   @override
-  State<FastMovingItemSection> createState() => _FastMovingItemSectionState();
+  State<BrandSection> createState() => _BrandSectionState();
 }
 
-class _FastMovingItemSectionState extends State<FastMovingItemSection> {
+class _BrandSectionState extends State<BrandSection> {
   @override
   Widget build(BuildContext context) {
     final scrollProvider = Provider.of<ScrollProvider>(context);
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.width / 1.50,
+      // height: MediaQuery.of(context).size.width / 1.50,
       color: AppColors.lightGrey,
       child: Column(
         children: [

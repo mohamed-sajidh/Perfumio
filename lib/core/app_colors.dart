@@ -14,4 +14,8 @@ class AppColors {
   static const darkgrey = Color.fromARGB(255, 115, 114, 114);
   static const brightRed = Color(0xFFFF2021);
   static const containerBorderGrey = Color.fromARGB(255, 217, 216, 216);
+  static const lightYellow = Color(0xFFFCF4C4);
+  static const softLavender = Color(0xFFEBE8FB);
+  static const lightPink = Color(0xFFFFDCDB);
+  static const lightGreen = Color(0xFFEFFFE4);
 }

@@ -10,4 +10,5 @@ class AppAssets {
   static const String bannerfive = 'assets/Banner5.jpg';
 
   static const String brandImg = 'assets/single_brand_img.png';
+  static const String categoryImg = 'assets/single_category_img.png';
 }

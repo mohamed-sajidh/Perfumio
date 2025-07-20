@@ -63,8 +63,6 @@ class ApiServices {
     if (response.statusCode == 200) {
       final jsonData = response.data;
 
-      print("jsonData => $jsonData");
-
       if (jsonData["message"] == "Success") {
         final data = jsonData["data"];
 

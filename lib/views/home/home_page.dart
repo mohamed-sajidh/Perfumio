@@ -105,26 +105,38 @@ class _HomePageState extends State<HomePage> {
                                 categoryItems: field.categories ?? []);
                           } else if (field.type == 'collection' &&
                               field.collectionId == 1) {
-                            return NewArrivals(
-                              productItems: field.products ?? [],
-                              titleName: field.name ?? "",
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: NewArrivals(
+                                productItems: field.products ?? [],
+                                titleName: field.name ?? "",
+                              ),
                             );
                           } else if (field.type == 'banner-grid') {
                             return BannerGridSection(
                                 bannerItem: field.banners ?? []);
                           } else if (field.type == 'collection' &&
                               field.collectionId == 2) {
-                            return NewArrivals(
-                              productItems: field.products ?? [],
-                              titleName: field.name ?? "",
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: NewArrivals(
+                                productItems: field.products ?? [],
+                                titleName: field.name ?? "",
+                              ),
                             );
                           } else if (field.type == 'banner') {
                             return SecondaryBannerSection(
                                 banner: field.banner!);
+                          } else if (field.type == 'collection' &&
+                              field.collectionId == 3) {
+                            return NewArrivals(
+                              productItems: field.products ?? [],
+                              titleName: field.name ?? "",
+                            );
                           } else {
                             return const SizedBox.shrink();
                           }
-                        }).toList(),
+                        }),
                         const SizedBox(height: 115),
                       ],
                     ),

@@ -12,7 +12,6 @@ class ProductProvider extends ChangeNotifier {
       notifyListeners();
       final  productItems = await ApiServices.getAllProducts();
       productList = productItems;
-      print("productItems => $productItems");
     } catch (e) {
       print(e);
     } finally {

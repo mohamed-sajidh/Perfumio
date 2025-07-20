@@ -12,4 +12,6 @@ class AppAssets {
   static const String brandImg = 'assets/single_brand_img.png';
   static const String categoryImg = 'assets/single_category_img.png';
   static const String productImg = 'assets/single_product_img.png';
+  static const String bannerGridImg = 'assets/banner_grid_img.png';
+  static const String bannerGridImg2 = 'assets/banner_grid_2.png';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/views/home/banner_grid_section.dart';
 import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/brand_section.dart';
 import 'package:perfumio/views/home/category_section.dart';
@@ -85,6 +86,8 @@ class _HomePageState extends State<HomePage> {
               SecondaryBannerSection(),
               SizedBox(height: 10),
               NewArrivals(),
+              SizedBox(height: 15),
+              BannerGridSection(),
               SizedBox(height: 115),
             ],
           ),

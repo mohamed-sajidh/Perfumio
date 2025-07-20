@@ -4,13 +4,14 @@ import 'package:perfumio/services/api_services.dart';
 
 class ProductProvider extends ChangeNotifier {
   bool getProductsLoader = false;
-  var productList = <ProductModel>[];
+  ProductModel? productList;
 
   Future<void> getAllProducts() async {
     try {
       getProductsLoader = true;
       notifyListeners();
-      ProductModel productItems = await ApiServices.getAllProducts();
+      final  productItems = await ApiServices.getAllProducts();
+      productList = productItems;
       print("productItems => $productItems");
     } catch (e) {
       print(e);

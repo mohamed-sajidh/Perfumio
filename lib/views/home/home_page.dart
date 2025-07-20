@@ -7,7 +7,6 @@ import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/brand_section.dart';
 import 'package:perfumio/views/home/category_section.dart';
 import 'package:perfumio/views/home/home_page_widgets.dart';
-import 'package:perfumio/views/home/latest_product.dart';
 import 'package:perfumio/views/home/new_arrivals.dart';
 import 'package:perfumio/views/home/secondary_banner_section.dart';
 import 'package:provider/provider.dart';
@@ -84,29 +83,40 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: const SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Column(
-            children: [
-              BannerScreen(),
-              SizedBox(height: 15),
-              BrandSection(),
-              SizedBox(height: 15),
-              CategorySection(),
-              SizedBox(height: 5),
-              SecondaryBannerSection(),
-              SizedBox(height: 10),
-              NewArrivals(),
-              SizedBox(height: 15),
-              BannerGridSection(),
-              SizedBox(height: 15),
-              LatestProduct(),
-              SizedBox(height: 115),
-            ],
-          ),
-        ),
-      ),
+      body: Consumer<ProductProvider>(builder: (context, provider, child) {
+        final homeFields = provider.productList?.homeFields ?? [];
+
+        return provider.getProductsLoader
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Column(
+                    children: [
+                      ...homeFields.map((field) {
+                        switch (field.type) {
+                          case 'carousel':
+                            return BannerScreen(carouselItems: field.carouselItems ?? []);
+                          case 'brands':
+                            return BrandSection();
+                          case 'category':
+                            return CategorySection();
+                          case 'collection':
+                            return NewArrivals();
+                          case 'banner':
+                            return SecondaryBannerSection();
+                          case 'banner-grid':
+                            return BannerGridSection();
+                          default:
+                            return const SizedBox.shrink();
+                        }
+                      }).toList(),
+                      const SizedBox(height: 115),
+                    ],
+                  ),
+                ),
+              );
+      }),
     );
   }
 }

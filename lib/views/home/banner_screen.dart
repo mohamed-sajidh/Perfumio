@@ -1,23 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:perfumio/core/app_assets.dart';
+import 'package:perfumio/models/product_model.dart';
 
 class BannerScreen extends StatefulWidget {
-  const BannerScreen({super.key});
+  final List<CarouselItem> carouselItems;
+  const BannerScreen({super.key, required this.carouselItems});
 
   @override
   State<BannerScreen> createState() => _BannerScreenState();
 }
 
 class _BannerScreenState extends State<BannerScreen> {
-  final List<String> bannerImg = [
-    AppAssets.bannerone,
-    AppAssets.bannertwo,
-    AppAssets.bannerthree,
-    AppAssets.bannerfour,
-    AppAssets.bannerfive,
-  ];
-
   int adsCurrentIndex = 0;
 
   @override
@@ -26,7 +19,7 @@ class _BannerScreenState extends State<BannerScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CarouselSlider.builder(
-          itemCount: bannerImg.length,
+          itemCount: widget.carouselItems.length,
           itemBuilder: (context, index, realIdx) {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -41,10 +34,16 @@ class _BannerScreenState extends State<BannerScreen> {
                 ],
               ),
               clipBehavior: Clip.antiAlias,
-              child: Image.asset(
-                bannerImg[index],
+              child: Image.network(
+                widget.carouselItems[index].image,
                 fit: BoxFit.fill,
                 width: double.infinity,
+                errorBuilder: (context, error, stackTrace) =>
+                    const Center(child: Icon(Icons.broken_image)),
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(child: CircularProgressIndicator());
+                },
               ),
             );
           },

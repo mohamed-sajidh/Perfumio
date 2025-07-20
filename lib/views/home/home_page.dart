@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/home_page_widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -63,6 +64,14 @@ class _HomePageState extends State<HomePage> {
                 scanhereButton(),
               ],
             ),
+          ],
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Column(
+          children: [
+            BannerScreen(),
           ],
         ),
       ),

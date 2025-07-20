@@ -49,7 +49,7 @@ class _BannerScreenState extends State<BannerScreen> {
             );
           },
           options: CarouselOptions(
-            height: 140,
+            height: 150,
             autoPlay: true,
             enlargeCenterPage: true,
             autoPlayCurve: Curves.easeInOut,

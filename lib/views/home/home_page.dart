@@ -67,8 +67,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: Column(
           children: [
             BannerScreen(),

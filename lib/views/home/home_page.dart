@@ -119,7 +119,8 @@ class _HomePageState extends State<HomePage> {
                               titleName: field.name ?? "",
                             );
                           } else if (field.type == 'banner') {
-                            return SecondaryBannerSection();
+                            return SecondaryBannerSection(
+                                banner: field.banner!);
                           } else {
                             return const SizedBox.shrink();
                           }

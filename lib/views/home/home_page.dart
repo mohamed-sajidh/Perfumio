@@ -109,10 +109,17 @@ class _HomePageState extends State<HomePage> {
                               productItems: field.products ?? [],
                               titleName: field.name ?? "",
                             );
+                          } else if (field.type == 'banner-grid') {
+                            return BannerGridSection(
+                                bannerItem: field.banners ?? []);
+                          } else if (field.type == 'collection' &&
+                              field.collectionId == 2) {
+                            return NewArrivals(
+                              productItems: field.products ?? [],
+                              titleName: field.name ?? "",
+                            );
                           } else if (field.type == 'banner') {
                             return SecondaryBannerSection();
-                          } else if (field.type == 'banner-grid') {
-                            return BannerGridSection();
                           } else {
                             return const SizedBox.shrink();
                           }

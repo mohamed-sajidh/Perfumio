@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:perfumio/constants/api_constants.dart';
+import 'package:perfumio/core/dio_client.dart';
 import 'package:perfumio/core/services.dart';
+import 'package:perfumio/models/product_model.dart';
 
 class ApiServices {
   static Future<String?> userLogin() async {
@@ -52,5 +54,32 @@ class ApiServices {
     } catch (e) {
       return "Unexpected error: $e";
     }
+  }
+
+  static Future<ProductModel> getAllProducts() async {
+    final dio = await DioClient().getAuthorizedDio();
+    final response = await dio.get(ApiConstants.productEndPoint);
+
+    if (response.statusCode == 200) {
+      final jsonData = response.data;
+
+      print("jsonData => $jsonData");
+
+      if (jsonData["message"] == "Success") {
+        final data = jsonData["data"];
+
+        try {
+          final productModel = ProductModel.fromJson(data);
+          return productModel;
+        } catch (e) {
+          print("Error parsing ProductModel: $e");
+          throw Exception("Failed to parse data");
+        }
+      } else {
+        throw Exception("Unexpected message: ${jsonData["message"]}");
+      }
+    }
+
+    throw Exception("Failed to load products");
   }
 }

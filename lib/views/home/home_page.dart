@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
+import 'package:perfumio/providers/product_provider.dart';
 import 'package:perfumio/views/home/banner_grid_section.dart';
 import 'package:perfumio/views/home/banner_screen.dart';
 import 'package:perfumio/views/home/brand_section.dart';
@@ -9,6 +10,7 @@ import 'package:perfumio/views/home/home_page_widgets.dart';
 import 'package:perfumio/views/home/latest_product.dart';
 import 'package:perfumio/views/home/new_arrivals.dart';
 import 'package:perfumio/views/home/secondary_banner_section.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +20,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      Provider.of<ProductProvider>(context, listen: false).getAllProducts();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;

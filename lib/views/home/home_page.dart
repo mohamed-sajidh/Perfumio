@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:perfumio/core/app_assets.dart';
 import 'package:perfumio/core/app_colors.dart';
 import 'package:perfumio/views/home/banner_screen.dart';
+import 'package:perfumio/views/home/brand_section.dart';
 import 'package:perfumio/views/home/home_page_widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.lightGrey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.white,
@@ -72,6 +73,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             BannerScreen(),
+            SizedBox(height: 15),
+            FastMovingItemSection(),
           ],
         ),
       ),

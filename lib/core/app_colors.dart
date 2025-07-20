@@ -13,4 +13,5 @@ class AppColors {
   static const green = Colors.green;
   static const darkgrey = Color.fromARGB(255, 115, 114, 114);
   static const brightRed = Color(0xFFFF2021);
+  static const containerBorderGrey = Color.fromARGB(255, 217, 216, 216);
 }

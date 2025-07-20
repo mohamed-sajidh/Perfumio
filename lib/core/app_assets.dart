@@ -8,4 +8,6 @@ class AppAssets {
   static const String bannerthree = 'assets/Banner3.jpg';
   static const String bannerfour = 'assets/Banner4.jpg';
   static const String bannerfive = 'assets/Banner5.jpg';
+
+  static const String brandImg = 'assets/single_brand_img.png';
 }
